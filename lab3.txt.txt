@@ -1,14 +1,12 @@
 aws ec2 create-security-group --description "reborn 3 " --group-name "Lab3"
 
->aws ec2 create-security-group --vpc-id vpc-09ae36deab1aa2ec4 --group-name "Lab3Reborn" --description "for lab 3"
+aws ec2 create-security-group --vpc-id vpc-09ae36deab1aa2ec4 --group-name "Lab3Reborn" --description "for lab 3"
 
-C:\Users\Yura\Desktop\aws>aws ec2 authorize-security-group-ingress --group-id sg-09f0486ff5b863f88 --protocol tcp --port 22 --cidr 0.0.0.0/0
+aws ec2 authorize-security-group-ingress --group-id sg-09f0486ff5b863f88 --protocol tcp --port 22 --cidr 0.0.0.0/0
 
+aws ec2 authorize-security-group-ingress --group-id sg-09f0486ff5b863f88 --protocol tcp --port 80 --cidr 0.0.0.0/0
 
-C:\Users\Yura\Desktop\aws>aws ec2 authorize-security-group-ingress --group-id sg-09f0486ff5b863f88 --protocol tcp --port 80 --cidr 0.0.0.0/0
-
-
-C:\Users\Yura\Desktop\aws>aws ec2 authorize-security-group-ingress --group-id sg-09f0486ff5b863f88 --protocol tcp --port 443 --cidr 0.0.0.0/0
+aws ec2 authorize-security-group-ingress --group-id sg-09f0486ff5b863f88 --protocol tcp --port 443 --cidr 0.0.0.0/0
 
 aws ec2 create-key-pair --key-name reb-key --query 'KeyMaterialForLab3' --output text > reb-key.pem
 
