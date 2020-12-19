@@ -1,4 +1,5 @@
 aws ecs create-cluster --cluster-name reborn-cluster
+aws ecs register-task-definition --cli-input-json file://task_9.json
 aws ecs describe-services --cluster reborn-cluster --services fargate-service
 aws ecs list-task-definitions
 aws ecs create-service --cluster reborn-cluster --service-name fargate-service --task-definition sample-fargate:1 --desired-count 1 --launch-type "FARGATE" --network-configuration "awsvpcConfiguration={subnets=[subnet-83dc7ffb],securityGroups=[sg-02a664e0b8c789654],assignPublicIp=ENABLED}
