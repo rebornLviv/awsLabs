@@ -1,0 +1,17 @@
+aws ec2 create-security-group --description "reborn 3 " --group-name "Lab3"
+
+>aws ec2 create-security-group --vpc-id vpc-09ae36deab1aa2ec4 --group-name "Lab3Reborn" --description "for lab 3"
+
+C:\Users\Yura\Desktop\aws>aws ec2 authorize-security-group-ingress --group-id sg-09f0486ff5b863f88 --protocol tcp --port 22 --cidr 0.0.0.0/0
+
+
+C:\Users\Yura\Desktop\aws>aws ec2 authorize-security-group-ingress --group-id sg-09f0486ff5b863f88 --protocol tcp --port 80 --cidr 0.0.0.0/0
+
+
+C:\Users\Yura\Desktop\aws>aws ec2 authorize-security-group-ingress --group-id sg-09f0486ff5b863f88 --protocol tcp --port 443 --cidr 0.0.0.0/0
+
+aws ec2 create-key-pair --key-name reb-key --query 'KeyMaterialForLab3' --output text > reb-key.pem
+
+aws ec2 run-instances --image-id ami-0e472933a1395e172 --count 1 --instance-type t2.micro --key-name reb-key --security-group-ids sg-09f0486ff5b863f88 --subnet-id subnet-0a09cd63ecb360c20 --user-data file://UserDta.txt
+
+aws ec2 create-image --instance-id i-06fac204b9681bb1b --name "reborn 3 2" --description "Apache Web Server"

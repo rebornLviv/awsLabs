@@ -1,0 +1,10 @@
+aws ec2 create-vpc --cidr-block 10.0.0.0/16
+aws ec2 create-subnet --vpc-id vpc-09ae36deab1aa2ec4  --cidr-block 10.0.0.0/24
+aws ec2 create-subnet --vpc-id vpc-09ae36deab1aa2ec4  --cidr-block 10.0.1.0/24
+aws ec2 create-internet-gateway
+aws ec2 attach-internet-gateway --vpc-id vpc-09ae36deab1aa2ec4  --internet-gateway-id igw-0a16acbe39c83611c
+aws ec2 create-route-table --vpc-id vpc-09ae36deab1aa2ec4
+aws ec2 create-route --route-table-id rtb-0f4d05c165855dc0b  --destination-cidr-block 0.0.0.0/0 --gateway-id igw-0a16acbe39c83611c
+aws ec2 associate-route-table  --subnet-id subnet-0eecb4f7f5d3a8e15 --route-table-id rtb-0f4d05c165855dc0b
+aws ec2 create-key-pair --key-name reborn-keys --query 'KeyMaterial' --output text > reborn-keys.pem
+aws ec2 create-security-group --group-name Reborn-Security --description "Firewall" --vpc-id vpc-09ae36deab1aa2ec4

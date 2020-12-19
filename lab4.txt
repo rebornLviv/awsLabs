@@ -1,0 +1,9 @@
+aws elbv2 create-load-balancer --name lb4 --type application --scheme internet-facing --subnets subnet-83dc7ffb subnet-1144f64c
+aws ec2 create-security-group --group-name lbs --description SG-lb
+aws ec2 authorize-security-group-ingress --group-id sg-0a88b555c85212092 --protocol tcp --port 80 --cidr 0.0.0.0/0
+aws ec2 authorize-security-group-ingress --group-id sg-0a88b555c85212092  --protocol tcp --port 22 --cidr 0.0.0.0/0
+aws elbv2 set-security-groups --load-balancer-arn  arn:aws:elasticloadbalancing:us-west-2:665184974495:loadbalancer/app/lb4/b187d1171d8158e8 --security-groups sg-0a88b555c85212092
+aws ec2 run-instances --image-id ami-0e472933a1395e172 --count 2 --instance-type t2.micro --key-name reborn-keys --associate-public-ip-address --security-group-ids sg-0a88b555c85212092
+aws elbv2 create-target-group --name lb4-tg --target-type instance --protocol HTTP --port 80 --vpc-id vpc-09ae36deab1aa2ec4
+aws elbv2 register-targets --target-group-arn arn:aws:elasticloadbalancing:us-west-2:665184974495:targetgroup/lbb4/49d626c6ffe3fe5f  --targets Id=i-09eb79092833d5cd8 Id=i-05d423459b1254022
+aws elbv2 create-listener --load-balancer-arn arn:aws:elasticloadbalancing:us-west-2:665184974495:loadbalancer/app/lb4/b187d1171d8158e8 --protocol HTTP --port 80 --default-actions Type=forward,TargetGroupArn=arn:aws:elasticloadbalancing:us-west-2:665184974495:targetgroup/lbb4/49d626c6ffe3fe5
